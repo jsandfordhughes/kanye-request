@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware([\App\Http\Middleware\AuthenticateApi::class])->group(function () {
+    Route::get('quotes', [\App\Http\Controllers\QuotesController::class, 'quotes']);
+    Route::get('quotes/refresh', [\App\Http\Controllers\QuotesController::class, 'refreshQuotes']);
 });
